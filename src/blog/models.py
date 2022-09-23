@@ -1,10 +1,12 @@
 from django.db import models
+from src.core import abstract_models
+
 
 # Create your models here.
-class Blogs(models.Model):
+class Blog(abstract_models.SoftDeleteModel):
     title = models.CharField(max_length=255)
     content = models.CharField(max_length=3000)
-    status = models.BooleanField(default=False)
+    status = models.SmallIntegerField(default=0)
     public_flag = models.BooleanField(default=False)
     created_by = models.IntegerField(null=True)
     updated_by = models.IntegerField(null=True)
@@ -12,7 +14,7 @@ class Blogs(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 
-class Comments(models.Model):
+class Comment(abstract_models.SoftDeleteModel):
     user_id = models.IntegerField()
     message = models.CharField(max_length=3000)
     status = models.BooleanField(default=True)
